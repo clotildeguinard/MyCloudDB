@@ -1,9 +1,9 @@
 package ui;
 
 /**
-*
-* @author nadiastraton
-*/
+ *
+ * @author nadiastraton
+ */
 
 import java.util.Scanner;
 import java.util.StringTokenizer;
