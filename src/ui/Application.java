@@ -5,19 +5,24 @@ package ui;
  * @author nadiastraton
  */
 
+
+import java.io.IOException;
+import java.net.Socket;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Application {
 
 	static String command;
-
+	public static Socket sock;
 	public enum Command {
 
 		CONNECT, DISCONNECT, SEND, LOGLEVEL, HELP, QUIT, EXIT
 	}
 
-	private static void run(Scanner sc) {
+	private static void run(Scanner sc) throws IOException {
 
 		System.out
 				.println("Milestone1: Connection and interation with TCP server");
@@ -30,12 +35,15 @@ public class Application {
 					.println("\n-------------------Please select one of the commands-------------------------------------");
 			System.out
 					.println("\nCONNECT, DISCONNECT, SEND, LOGLEVEL, HELP, QUIT, EXIT");
-
-			command = sc.nextLine(); // take user input
-			Command cmd = null;
+//			Console console = System.console();
+			List<String> words = Arrays.asList(sc.nextLine().split("\\s+"));
+			System.out.println(words);
+//			command = sc.nextLine(); // take user input
+//			Command cmd = null;
+			String cmd = words.get(0);
 
 			try {
-				cmd = Command.valueOf(command.toUpperCase());
+				cmd = String.valueOf(cmd.toUpperCase());
 			} catch (IllegalArgumentException e) {
 				// System.out.println("Invalid input");
 				continue;
@@ -43,18 +51,20 @@ public class Application {
 			}
 			switch (cmd) {
 
-			case EXIT: // exit menu
+			case "EXIT": // exit menu
 				done = true;// condition for breaking the loop
 				break;
 
-			case CONNECT:
+			case "CONNECT":
+				
+//				System.out.println("\nIP adress: ");
+//				String ipAdress = sc.next(); // user Input
+				String ipAdress = words.get(1);
 
-				System.out.println("\nIP adress: ");
-				String ipAdress = sc.next(); // user Input
+//				System.out.println("\nPort: ");
 
-				System.out.println("\nPort: ");
-
-				int portNumber = sc.nextInt();// user Input
+//				int portNumber = sc.nextInt();// user Input
+				int portNumber = Integer.parseInt(words.get(2));
 
 				// if (portNumber <= 0) &&
 
@@ -71,12 +81,14 @@ public class Application {
 						System.out
 								.println("\n Entered value for Port is negative number ");
 					}
+					String check = "localhost";
 					// Check the address string, should be n.n.n.n format
-
-					StringTokenizer token = new StringTokenizer(ipAdress, ".");
-					if (token.countTokens() != 4) {
-						System.out.println("\n Entered value for "
-								+ "\n IP adress is not in n.n.n.n format ");
+					if(!"localhost".equals(words.get(1))){
+						StringTokenizer token = new StringTokenizer(ipAdress, ".");
+						if (token.countTokens() != 4) {
+							System.out.println("\n Entered value for "
+									+ "\n IP adress is not in n.n.n.n format or localhost ");
+						}
 					}
 
 					// while ( token.hasMoreTokens()) {
@@ -99,8 +111,10 @@ public class Application {
 
 					else {
 
-						System.out.println("\nEcoClient>" + " " + command + " "
+						System.out.println("\nEcoClient>" + " " + cmd + " "
 								+ ipAdress + " " + portNumber);
+						sock = IvanClass.connect(ipAdress, portNumber);
+						
 
 					}
 				}
@@ -113,13 +127,14 @@ public class Application {
 
 				break;
 
-			case DISCONNECT:
+			case "DISCONNECT":
 
-				System.out.println("\nEcoClient>" + " " + command);
+				System.out.println("\nEcoClient>" + " " + cmd);
+				IvanClass.disconnect(sock);
 
 				break;
 
-			case SEND:
+			case "SEND":
 
 				System.out.println("\nPlease enter " + " Hello_World ");
 				try {
@@ -129,7 +144,7 @@ public class Application {
 						System.out
 								.println("\nCorrect input Hello_World, please try again");
 					} else {
-						System.out.println("\nEcoClient>" + " " + command + " "
+						System.out.println("\nEcoClient>" + " " + cmd + " "
 								+ greeting);
 
 					}
@@ -141,9 +156,9 @@ public class Application {
 				}
 				break;
 
-			case LOGLEVEL:
+			case "LOGLEVEL":
 				try {
-					System.out.println("\nEcoClient>" + " " + command + "< "
+					System.out.println("\nEcoClient>" + " " + cmd + "< "
 							+ "current log status" + " >");
 				} catch (Exception e) {// throw exception in case of illogical
 					// input
@@ -154,7 +169,7 @@ public class Application {
 				}
 				break;
 
-			case HELP:
+			case "HELP":
 				try {
 					System.out
 							.println("\nFollowing set of commands provide following functionalities:"
@@ -173,10 +188,10 @@ public class Application {
 				}
 				break;
 
-			case QUIT:
+			case "QUIT":
 
 				try {
-					System.out.println(" EcoClient> " + command);
+					System.out.println(" EcoClient> " + cmd);
 
 				} catch (Exception e) {// throw exception in case of illogical
 					// input
@@ -196,9 +211,10 @@ public class Application {
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		Scanner sc = new Scanner(System.in);// will take user input
+//		Scanner scanner = new Scanner(console.reader());
 
 		run(sc);
 
