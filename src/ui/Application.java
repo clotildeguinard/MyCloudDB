@@ -1,10 +1,5 @@
 package ui;
 
-/**
- *
- * @author nadiastraton
- */
-
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -19,8 +14,7 @@ public class Application {
 
 	private static void run(Scanner sc) {
 
-		System.out
-				.println("Milestone1: Connection and interation with TCP server");
+		System.out.println("Milestone1: Connection and interation with TCP server");
 		// String command; // ready for the input
 
 		boolean done = false; // ready for the menu loop
@@ -31,16 +25,20 @@ public class Application {
 			System.out
 					.println("\nCONNECT, DISCONNECT, SEND, LOGLEVEL, HELP, QUIT, EXIT");
 
-			command = sc.nextLine(); // take user input
-			Command cmd = null;
+			command = sc.next(); // take user input
+		Command cmd = null;
 
-			try {
+		try {
 				cmd = Command.valueOf(command.toUpperCase());
-			} catch (IllegalArgumentException e) {
-				// System.out.println("Invalid input");
-				continue;
-
-			}
+		} catch (IllegalArgumentException e) {
+				
+			System.out.println("\nDo not recognise "
+					+ "the input, pl. try again");
+		
+			continue;
+		
+	}
+			
 			switch (cmd) {
 
 			case EXIT: // exit menu
@@ -105,7 +103,7 @@ public class Application {
 					}
 				}
 
-				catch (Exception e) {// throw exception in case of illogical
+				catch (Exception e1) {// throw exception in case of illogical
 					// input
 					System.out.println("\nBad input, please try again ");
 					sc.nextLine(); // remove leftover "\n"
@@ -121,23 +119,24 @@ public class Application {
 
 			case SEND:
 
-				System.out.println("\nPlease enter " + " Hello_World ");
+				System.out.println("\nPlease enter " + " HelloWorld");
 				try {
 					String greeting = sc.next(); // user Input
 
-					if (greeting != "Hello_World") {
-						System.out
-								.println("\nCorrect input Hello_World, please try again");
-					} else {
+//					if (!greeting.equals("HelloWorld"))
+//							{
+//						System.out.
+//								.println("\nIncorrect input, please try again");
+//					} else {
 						System.out.println("\nEcoClient>" + " " + command + " "
 								+ greeting);
 
-					}
-				} catch (Exception e) {// throw exception in case of illogical
+					
+				} catch (Exception e1) {// throw exception in case of illogical
 					// input
 
 					System.out.println("\nBad input, please try again ");
-					sc.nextLine(); // remove leftover "\n"
+					sc.next(); // remove leftover "\n"
 				}
 				break;
 
@@ -145,7 +144,7 @@ public class Application {
 				try {
 					System.out.println("\nEcoClient>" + " " + command + "< "
 							+ "current log status" + " >");
-				} catch (Exception e) {// throw exception in case of illogical
+				} catch (Exception e1) {// throw exception in case of illogical
 					// input
 
 					System.out.println("\nBad input, please try again ");
@@ -165,7 +164,7 @@ public class Application {
 									+ "\nquit: quits and notifies user about program shut down "
 									+ "\nexit: cancel the input");
 
-				} catch (Exception e) {// throw exception in case of illogical
+				} catch (Exception e1) {// throw exception in case of illogical
 					// input
 
 					System.out.println("\nBad input, please try again ");
@@ -178,7 +177,7 @@ public class Application {
 				try {
 					System.out.println(" EcoClient> " + command);
 
-				} catch (Exception e) {// throw exception in case of illogical
+				} catch (Exception e1) {// throw exception in case of illogical
 					// input
 
 					System.out.println("\nBad input, please try again ");
@@ -187,14 +186,10 @@ public class Application {
 				}
 				break;
 
-			default:
-				System.out.println("\nDoes not recognise "
-						+ "the input, pl. try again");
-
+			
 			}
 
-		}
-	}
+		}}
 
 	public static void main(String[] args) {
 
