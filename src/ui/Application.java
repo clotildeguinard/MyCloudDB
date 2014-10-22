@@ -6,8 +6,11 @@ package ui;
  */
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -36,13 +39,16 @@ public class Application {
 			System.out
 					.println("\nCONNECT, DISCONNECT, SEND, LOGLEVEL, HELP, QUIT, EXIT");
 //			Console console = System.console();
+			
+			//words = input as a list, excluded spaces, only words.
 			List<String> words = Arrays.asList(sc.nextLine().split("\\s+"));
-			System.out.println(words);
+			
 //			command = sc.nextLine(); // take user input
 //			Command cmd = null;
 			String cmd = words.get(0);
 
 			try {
+				//Converts input into capitalised letters
 				cmd = String.valueOf(cmd.toUpperCase());
 			} catch (IllegalArgumentException e) {
 				// System.out.println("Invalid input");
@@ -135,25 +141,40 @@ public class Application {
 				break;
 
 			case "SEND":
-
-				System.out.println("\nPlease enter " + " Hello_World ");
-				try {
-					String greeting = sc.next(); // user Input
-
-					if (greeting != "Hello_World") {
-						System.out
-								.println("\nCorrect input Hello_World, please try again");
-					} else {
-						System.out.println("\nEcoClient>" + " " + cmd + " "
-								+ greeting);
-
-					}
-				} catch (Exception e) {// throw exception in case of illogical
-					// input
-
-					System.out.println("\nBad input, please try again ");
-					sc.nextLine(); // remove leftover "\n"
+				//Checks if socket is connected
+				if(!sock.isConnected()){
+					System.out.println("Error! Not Connected.");
+					break;
 				}
+				String message = words.remove(0);
+				byte[] MessageInBytes = message.getBytes(Charset.forName("UTF-8"));
+//				//Create array of bytes from list. we use string.
+//				ByteArrayOutputStream ByteOS = new ByteArrayOutputStream();
+//				DataOutputStream DataOS = new DataOutputStream(ByteOS);
+//				for (String element : message) {
+//				    DataOS.writeUTF(element);
+//				}
+//				byte[] WordsInBytes = ByteOS.toByteArray();
+				IvanClass.send(MessageInBytes);
+				
+				System.out.println("\nPlease enter " + " Hello_World ");
+//				try {
+//					String greeting = sc.next(); // user Input
+//
+//					if (greeting != "Hello_World") {
+//						System.out
+//								.println("\nCorrect input Hello_World, please try again");
+//					} else {
+//						System.out.println("\nEcoClient>" + " " + cmd + " "
+//								+ greeting);
+//
+//					}
+//				} catch (Exception e) {// throw exception in case of illogical
+//					// input
+//
+//					System.out.println("\nBad input, please try again ");
+//					sc.nextLine(); // remove leftover "\n"
+//				}
 				break;
 
 			case "LOGLEVEL":
@@ -170,41 +191,45 @@ public class Application {
 				break;
 
 			case "HELP":
-				try {
-					System.out
-							.println("\nFollowing set of commands provide following functionalities:"
-									+ "\nconnect: establishes connection to the eco server "
-									+ "\ndisconnect: disconnects from the server and receives confirmation message "
-									+ "\nsend: sends the message to the server "
-									+ "\nlogLevel: prints out current log status"
-									+ "\nquit: quits and notifies user about program shut down "
-									+ "\nexit: cancel the input");
-
-				} catch (Exception e) {// throw exception in case of illogical
+//				try {
+//					System.out
+//							.println("\nFollowing set of commands provide following functionalities:"
+//									+ "\nconnect: establishes connection to the eco server "
+//									+ "\ndisconnect: disconnects from the server and receives confirmation message "
+//									+ "\nsend: sends the message to the server "
+//									+ "\nlogLevel: prints out current log status"
+//									+ "\nquit: quits and notifies user about program shut down "
+//									+ "\nexit: cancel the input");
+					IvanClass.help();
+//				} catch (Exception e) {// throw exception in case of illogical
 					// input
 
 					System.out.println("\nBad input, please try again ");
 					sc.nextLine(); // remove leftover "\n"
-				}
+//				}
 				break;
 
 			case "QUIT":
-
-				try {
-					System.out.println(" EcoClient> " + cmd);
-
-				} catch (Exception e) {// throw exception in case of illogical
-					// input
-
-					System.out.println("\nBad input, please try again ");
-					sc.nextLine(); // remove leftover "\n"
-
-				}
+				
+//				System.out.println("Application exit!");
+				IvanClass.disconnect(sock);
+				done = IvanClass.quit();
+//				try {
+//					System.out.println(" EcoClient> " + cmd);
+//
+//				} catch (Exception e) {// throw exception in case of illogical
+//					// input
+//
+//					System.out.println("\nBad input, please try again ");
+//					sc.nextLine(); // remove leftover "\n"
+//
+//				}
+//				done = true;
 				break;
 
-			default:
-				System.out.println("\nDoes not recognise "
-						+ "the input, pl. try again");
+//			default:
+//				System.out.println("\nDoes not recognise "
+//						+ "the input, pl. try again");
 
 			}
 

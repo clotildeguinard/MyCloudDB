@@ -13,6 +13,7 @@ public class IvanClass {
 	public static Socket socket;
 	
 	public static Socket connect(String ip_adress, int port) throws UnknownHostException, IOException {
+		// connects to a server. return socket where all action is happening.
 		Socket ClientSocket = new Socket(ip_adress, port);
 		return ClientSocket;
 	}
@@ -26,10 +27,6 @@ public class IvanClass {
 	public static void send(byte[] myByteArray) throws IOException {
 		int start = 0;
 		int len = myByteArray.length;
-	    if (len < 0)
-	        throw new IllegalArgumentException("Negative length not allowed");
-	    if (start < 0 || start >= myByteArray.length)
-	        throw new IndexOutOfBoundsException("Out of bounds: " + start);
 
 	    OutputStream out = socket.getOutputStream(); 
 	    DataOutputStream dos = new DataOutputStream(out);
@@ -45,12 +42,20 @@ public class IvanClass {
 		return false;
 	}
 	
-	public boolean help(String help_text){
-		return false;
+	public static void help(){
+		System.out
+		.println("\nFollowing set of commands provide following functionalities:"
+				+ "\nconnect: establishes connection to the eco server "
+				+ "\ndisconnect: disconnects from the server and receives confirmation message "
+				+ "\nsend: sends the message to the server "
+				+ "\nlogLevel: prints out current log status"
+				+ "\nquit: quits and notifies user about program shut down "
+				+ "\nexit: cancel the input");
+
 	}
 	
-	public boolean quit()
-	{
+	public static boolean quit(){
+		System.out.println("Application exit!");
 		return false;
 	}
 	
