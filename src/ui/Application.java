@@ -20,10 +20,8 @@ public class Application {
 		boolean done = false; // ready for the menu loop
 		while (!done) { // keep on until done
 
-			System.out
-					.println("\n-------------------Please select one of the commands-------------------------------------");
-			System.out
-					.println("\nCONNECT, DISCONNECT, SEND, LOGLEVEL, HELP, QUIT, EXIT");
+			System.out.println("\n-------------------Please select one of the commands-------------------------------------");
+			System.out.println("\nCONNECT, DISCONNECT, SEND, LOGLEVEL, HELP, QUIT, EXIT");
 
 			command = sc.next(); // take user input
 		Command cmd = null;
