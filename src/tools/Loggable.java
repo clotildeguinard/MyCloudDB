@@ -19,28 +19,50 @@ import ui.Application;
 public abstract class Loggable {
 	protected static Logger logger;
 	protected final static String logPath = "logs/";
-	protected ConsoleAppender consoleAppender;
+	protected static FileAppender mainAppender;
+
+	public enum AvailableLevels {
+		ALL, DEBUG, INFO, WARN, ERROR, FATAL, OFF
+	}
 
 	public Loggable() {
 		logger = Logger.getLogger(this.getClass());
 
-		createNewFileAppender("all");
+		createNewFileAppender("debug");
 		createNewFileAppender("warn");
 		createNewFileAppender("fatal");
-		createNewConsoleAppender("all");
+		mainAppender = createNewFileAppender("all");
+		mainAppender.setFile(logPath + "mainLog" + ".log");
+
+		logger.debug("Successfully initiated logger");
 	}
 
 	/**
 	 * 
 	 * @param level
-	 * @return True if succeeded, false if consoleAppender is null
+	 * @return True if succeeded, false if mainAppender is null or entered level does not exist
 	 */
-	protected boolean setConsoleLevel(String level) {
-		ConsoleAppender ca = (ConsoleAppender) logger.getAppender("MyConsoleAppender");
-		if (ca != null) {
-			ca.setThreshold(Level.toLevel(level));
-			return true;
-		} return false;
+	public static boolean setMainAppenderLevel(String level) {
+		try {
+			if (mainAppender != null && AvailableLevels.valueOf(level.toUpperCase()) != null) {
+				mainAppender.setThreshold(Level.toLevel(level));
+				logger.info("Level of main appender set to " + level);
+				return true;
+			} 
+		} catch (IllegalArgumentException e){
+			logger.error("Tried to set log level to unexisting level : " + level);
+		}
+		return false;
+	}
+
+	/**
+	 * 
+	 * @return mainAppender level if mainAppender not null
+	 */
+	public static String getMainAppenderLevel() {
+		if (mainAppender != null) {
+			return mainAppender.getThreshold().toString();
+		} return null;
 	}
 
 	private static FileAppender createNewFileAppender(String logLevel) {
@@ -51,17 +73,6 @@ public abstract class Loggable {
 	    appender.setAppend(true);
 	    appender.setMaxFileSize("5MB");
 	    appender.setMaxBackupIndex(10);
-	    appender.setThreshold(Level.toLevel(logLevel));
-	    appender.activateOptions();
-
-	    logger.addAppender(appender);
-	    return appender;
-	}
-
-	private static ConsoleAppender createNewConsoleAppender(String logLevel) {
-	    ConsoleAppender appender = new ConsoleAppender();
-	    appender.setName("MyConsoleAppender");
-	    appender.setLayout(new PatternLayout("%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"));
 	    appender.setThreshold(Level.toLevel(logLevel));
 	    appender.activateOptions();
 
