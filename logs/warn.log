@@ -1,0 +1,4 @@
+2014-10-23 02:31:41 ERROR IvanClass:51 - Tried to set log level to unexisitng level : warn
+2014-10-23 02:59:29 ERROR IvanClass:27 - Failed to connect with parameters 0.0.0.0 and 100 : java.net.ConnectException: Connection refused: connect
+2014-10-23 02:59:41 ERROR IvanClass:27 - Failed to connect with parameters 0.0.0.0 and 154 : java.net.ConnectException: Connection refused: connect
+2014-10-23 03:11:20 ERROR IvanClass:27 - Failed to connect with parameters 131.159.52.1 and 50000 : java.net.ConnectException: Connection refused: connect

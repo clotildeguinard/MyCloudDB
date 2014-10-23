@@ -41,4 +41,7 @@ public class IvanTest {
 	
 }
  
+<<<<<<< HEAD
 
+=======
+>>>>>>> FETCH_HEAD

@@ -1,0 +1,28 @@
+2014-10-23 02:18:09 INFO  IvanClass:84 - Attempt to quit; trying to disconnect...
+2014-10-23 02:31:41 ERROR IvanClass:51 - Tried to set log level to unexisitng level : warn
+2014-10-23 02:33:42 INFO  IvanClass:47 - Level of main appender set to info
+2014-10-23 02:40:29 INFO  IvanClass:87 - Attempt to quit; trying to disconnect...
+2014-10-23 02:40:29 INFO  IvanClass:47 - Successfully disconnected
+2014-10-23 02:40:38 INFO  IvanClass:87 - Attempt to quit; trying to disconnect...
+2014-10-23 02:40:38 INFO  IvanClass:47 - Successfully disconnected
+2014-10-23 02:48:01 DEBUG IvanClass:71 - Providing help.
+2014-10-23 02:59:09 DEBUG IvanClass:37 - Successfully initiated logger
+2014-10-23 02:59:29 ERROR IvanClass:27 - Failed to connect with parameters 0.0.0.0 and 100 : java.net.ConnectException: Connection refused: connect
+2014-10-23 02:59:41 ERROR IvanClass:27 - Failed to connect with parameters 0.0.0.0 and 154 : java.net.ConnectException: Connection refused: connect
+2014-10-23 02:59:46 INFO  IvanClass:93 - Attempt to quit; asking to disconnect...
+2014-10-23 02:59:46 INFO  IvanClass:47 - Successfully disconnected
+2014-10-23 03:00:41 DEBUG IvanClass:37 - Successfully initiated logger
+2014-10-23 03:03:53 DEBUG IvanClass:37 - Successfully initiated logger
+2014-10-23 03:03:58 INFO  IvanClass:57 - Sending an array of bytes, length : 4
+2014-10-23 03:05:03 DEBUG IvanClass:37 - Successfully initiated logger
+2014-10-23 03:05:11 INFO  IvanClass:57 - Sending an array of bytes, length : 4[B@18107c2f
+2014-10-23 03:10:46 DEBUG IvanClass:37 - Successfully initiated logger
+2014-10-23 03:11:20 ERROR IvanClass:27 - Failed to connect with parameters 131.159.52.1 and 50000 : java.net.ConnectException: Connection refused: connect
+2014-10-23 03:11:32 INFO  IvanClass:93 - Attempt to quit; asking to disconnect...
+2014-10-23 03:11:32 INFO  IvanClass:47 - Successfully disconnected
+2014-10-23 03:11:48 DEBUG IvanClass:37 - Successfully initiated logger
+2014-10-23 03:11:51 INFO  IvanClass:47 - Successfully disconnected
+2014-10-23 03:33:51 DEBUG ClientLogic:37 - Successfully initiated logger
+2014-10-23 03:38:44 DEBUG ClientLogic:37 - Successfully initiated logger
+2014-10-23 03:38:59 DEBUG ClientLogic:37 - Successfully initiated logger
+2014-10-23 03:39:10 DEBUG ClientLogic:37 - Successfully initiated logger
